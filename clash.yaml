@@ -10,13 +10,13 @@ redir-port: 7892
 # 混合代理端口
 mixed-port: 7893
 # 允许局域网的连接
-allow-lan: true
+allow-lan: false
 # 规则模式
 mode: rule
 # 日志级别
 log-level: info
 # IPV6是否开启
-ipv6: false
+ipv6: true
 external-controller: 127.0.0.1:9090   # 外部控制器监听地址，可以使用 RESTful API 来控制你的 clash 内核
 proxy-providers:
   服务提供商-1:
@@ -67,6 +67,7 @@ dns:
         - 手动切换
         - 自动选择
         - 香港节点
+        - 新加坡节点
         - 日本节点
         - 美国节点
         - 台湾节点
@@ -123,7 +124,7 @@ dns:
         *G
       
   # 基于地区分组
-    - name: HK 香港
+    - name: 香港节点
       filter: "澳门|🇲🇴|港|🇭🇰|HK|(?i)Hong"
       icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Hong_Kong.png
       interval: 120
@@ -131,7 +132,7 @@ dns:
       tolerance: 50
       type: url-test
       include-all: true
-    - name: TW 台湾
+    - name: 台湾节点
       filter: "台|🇹🇼|湾|TW|(?i)Taiwan"
       icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Taiwan.png
       interval: 120
@@ -139,7 +140,7 @@ dns:
       tolerance: 50
       type: url-test
       include-all: true
-    - name: SG 新加坡
+    - name: 新加坡节点
       filter: "新加坡|坡|狮城|🇸🇬|SG|(?i)Singapore"
       icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Singapore.png
       interval: 120
@@ -147,7 +148,7 @@ dns:
       tolerance: 50
       type: url-test
       include-all: true
-    - name: JP 日本
+    - name: 日本节点
       filter: "日|🇯🇵|东京|JP|(?i)Japan"
       icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Japan.png
       interval: 120
@@ -155,7 +156,7 @@ dns:
       tolerance: 50
       type: url-test
       include-all: true
-    - name: US 美国
+    - name: 美国节点
       filter: "美|🇺🇲|US|(?i)States|America"
       icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/United_States.png
       interval: 120
@@ -163,7 +164,7 @@ dns:
       tolerance: 50
       type: url-test
       include-all: true
-  rule-providers:
+rule-providers:
     YouTube:
       type: http
       behavior: classical
@@ -223,7 +224,6 @@ rules:
     - RULE-SET,Microsoft,微软服务
     - RULE-SET,Global,Global
     - RULE-SET,China,China
-    - GEOIP,Lan,DIRECT,no-resolve
-    - GEOIP,CN,China,no-resolve
+    - GEOIP,CN,China
     - MATCH,漏网之鱼
     
