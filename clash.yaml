@@ -1,1 +1,166 @@
+#---------------------------------------------------#
+## 更新：2023-09-21 17:35:00
+#---------------------------------------------------#
+# 代理端口
+port: 7890
+# socks5 代理端口
+socks-port: 7891
+# redir 代理端口
+redir-port: 7892
+# 混合代理端口
+mixed-port: 7893
+# 允许局域网的连接
+allow-lan: true
+# 规则模式
+mode: rule
+# 日志级别
+log-level: info
+# IPV6是否开启
+ipv6: false
+external-controller: 127.0.0.1:9090   # 外部控制器监听地址，可以使用 RESTful API 来控制你的 clash 内核
+proxy-providers:
+  服务提供商-1:
+    url: http://your-service-provider
+    interval: 600
+dns:
+  enable: true             # 关闭将使用系统 DNS
+  ipv6: true               # IPV6解析开关；如果为false，将返回ipv6结果为空
+  listen: 0.0.0.0:53       # DNS 监听地址
+  default-nameserver: 
+    - 223.5.5.5
+    - 119.29.29.29           # 解析非IP的dns用的dns服务器，只支持纯IP，（Meta可为其加密）
+  enhanced-mode: fake-ip   # 模式：redir-host或fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - localhost.ptlogin2.qq.com
+    - '+.srv.nintendo.net'
+    - '+.stun.playstation.net'
+    - '+.msftconnecttest.com'
+    - '+.msftncsi.com'
+    - '+.xboxlive.com'
+    - 'msftconnecttest.com'
+    - 'xbox.*.microsoft.com'
+    - '*.battlenet.com.cn'
+    - '*.battlenet.com'
+    - '*.blzstatic.cn'
+    - '*.battle.net'
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  proxy-groups:
+    - name: 手动切换
+      type: select
+      icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Rocket.png
+      include-all: true #引用所有节点
+    - name: 自动选择
+      type: url-test
+      icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
+      include-all: true
+      url: "http://www.gstatic.com/generate_204"
+      interval: 300
 
+    - name: Global
+      type: select
+      icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+      proxies: &G
+        - 手动切换
+        - 自动选择
+        - 香港节点
+        - 日本节点
+        - 美国节点
+        - 台湾节点
+    - name: China
+      type: select
+      icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China_Map.png
+      proxies: &C
+        - DIRECT
+        - 手动切换
+        - 香港节点
+        - 美国节点
+        - 台湾节点
+    - name: YouTube
+      type: select
+      icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png
+      proxies:
+        *G
+
+    - name: NETFLIX
+      type: select
+      icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
+      proxies:
+        *G
+
+    - name: Disney+
+      type: select
+      icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/DisneyPlus.png
+      proxies:
+        *G
+    - name: 苹果服务
+      type: select
+      icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
+      proxies:
+        *C
+
+    - name: 微软服务
+      type: select
+      icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png
+      proxies:
+        *G
+    - name: 漏网之鱼
+      type: select
+      icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
+      proxies:
+        *G
+    - name: Spotify
+      icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Spotify.png
+      type: select
+      proxies: *G
+    - name: OpenAI
+      type: select
+      icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/mini/Bot.png
+      proxies:
+        *G
+      
+  # 基于地区分组
+    - name: HK 香港
+      filter: "澳门|🇲🇴|港|🇭🇰|HK|(?i)Hong"
+      icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Hong_Kong.png
+      interval: 120
+      lazy: true
+      tolerance: 50
+      type: url-test
+      include-all: true
+    - name: TW 台湾
+      filter: "台|🇹🇼|湾|TW|(?i)Taiwan"
+      icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Taiwan.png
+      interval: 120
+      lazy: true
+      tolerance: 50
+      type: url-test
+      include-all: true
+    - name: SG 新加坡
+      filter: "新加坡|坡|狮城|🇸🇬|SG|(?i)Singapore"
+      icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Singapore.png
+      interval: 120
+      lazy: true
+      tolerance: 50
+      type: url-test
+      include-all: true
+    - name: JP 日本
+      filter: "日|🇯🇵|东京|JP|(?i)Japan"
+      icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Japan.png
+      interval: 120
+      lazy: true
+      tolerance: 50
+      type: url-test
+      include-all: true
+    - name: US 美国
+      filter: "美|🇺🇲|US|(?i)States|America"
+      icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/United_States.png
+      interval: 120
+      lazy: true
+      tolerance: 50
+      type: url-test
+      include-all: true
+    
