@@ -167,9 +167,7 @@ rules:
   - GEOIP,LAN,DIRECT
   - GEOIP,CN,DIRECT
   - MATCH,Final
-script:
-  shortcuts:
-    quic: network == 'udp' and dst_port == 443
+
 dns:
   default-nameserver:
     - 114.114.115.115
