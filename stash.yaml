@@ -1,0 +1,244 @@
+proxy-providers:
+  订阅链接:
+    url:
+    interval: 600
+    # 服务提供商-2:
+    #   url: http://your-another-service-provider
+    #   interval: 600
+proxy-groups:
+  # 功能分组
+  - name: Global
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Global.png
+    type: select
+    proxies: &proxies
+      - HK 香港
+      - TW 台湾
+      - US 美国
+      - JP 日本
+      - 手动选择
+      - SG 新加坡
+  # 基于地区分组
+  - name: HK 香港
+    filter: "澳门|🇲🇴|港|🇭🇰|HK|(?i)Hong"
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Hong_Kong.png
+    interval: 120
+    lazy: true
+    tolerance: 50
+    type: url-test
+    include-all: true
+  - name: TW 台湾
+    filter: "台|🇹🇼|湾|TW|(?i)Taiwan"
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Taiwan.png
+    interval: 120
+    lazy: true
+    tolerance: 50
+    type: url-test
+    include-all: true
+  - name: US 美国
+    filter: "美|🇺🇲|US|(?i)States|America"
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/United_States.png
+    interval: 120
+    lazy: true
+    tolerance: 50
+    type: url-test
+    include-all: true
+  - name: JP 日本
+    filter: "日|🇯🇵|东京|JP|(?i)Japan"
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Japan.png
+    interval: 120
+    lazy: true
+    tolerance: 50
+    type: url-test
+    include-all: true
+  - name: 手动选择
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Static.png
+    interval: 120
+    lazy: true
+    type: select
+    include-all: true
+  - name: SG 新加坡
+    filter: "新加坡|坡|狮城|🇸🇬|SG|(?i)Singapore"
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Singapore.png
+    interval: 120
+    lazy: true
+    tolerance: 50
+    type: url-test
+    include-all: true
+  - icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Microsoft.png
+    name: Microsoft
+    proxies:
+      - HK 香港
+      - US 美国
+      - DIRECT
+    type: select
+  - icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Instagram.png
+    name: Instagram
+    proxies:
+      - Global
+      - HK 香港
+      - US 美国
+      - TW 台湾
+      - JP 日本
+    type: select
+  - icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Telegram.png
+    name: Telegram
+    proxies:
+      - Global
+      - HK 香港
+      - US 美国
+      - TW 台湾
+      - JP 日本
+    type: select
+  - name: YouTube
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/YouTube.png
+    type: select
+    proxies:
+      - HK 香港
+      - TW 台湾
+      - US 美国
+      - JP 日本
+      - SG 新加坡
+  - name: Spotify
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Spotify.png
+    type: select
+    proxies:
+      - HK 香港
+      - TW 台湾
+      - US 美国
+  - name: Disney+
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Disney%2B.png
+    type: select
+    proxies:
+      - HK 香港
+      - TW 台湾
+      - US 美国
+      - SG 新加坡
+  - icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Bot.png
+    name: OpenAI
+    proxies:
+      - TW 台湾
+      - HK 香港
+      - US 美国
+    type: select
+  - name: Netflix
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Netflix.png
+    type: select
+    proxies:
+      - HK 香港
+      - TW 台湾
+      - US 美国
+      - JP 日本
+      - SG 新加坡
+  - icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Twitter.png
+    name: Twitter
+    proxies:
+      - Global
+      - HK 香港
+      - TW 台湾
+      - US 美国
+      - JP 日本
+    type: select
+  - icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Apple.png
+    name: Apple
+    proxies:
+      - DIRECT
+      - HK 香港
+      - US 美国
+    type: select
+  - name: Final
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Final.png
+    type: select
+    proxies:
+      - Global
+      - DIRECT
+rules:
+  - RULE-SET,AD拦截,REJECT
+  - RULE-SET,Global,Global
+  - RULE-SET,Apple,DIRECT
+  - RULE-SET,Twitter,Global
+  - RULE-SET,Netflix,Global
+  - RULE-SET,OpenAI,TW 台湾
+  - RULE-SET,Disney+,Global
+  - RULE-SET,Spotify,HK 香港
+  - RULE-SET,Youtube,HK 香港
+  - RULE-SET,Telegram,Global
+  - RULE-SET,Instagram,Global
+  - RULE-SET,Microsoft,Global
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,Final
+script:
+  shortcuts:
+    quic: network == 'udp' and dst_port == 443
+dns:
+  default-nameserver:
+    - 114.114.115.115
+    - 119.28.28.28
+    - 223.6.6.6
+    - system
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+log-level: warning
+mode: rule
+rule-providers:
+  Microsoft:
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
+  Instagram:
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Instagram/Instagram.yaml
+  Telegram:
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
+  Youtube:
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
+  Spotify:
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
+  OpenAI:
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
+  Disney+:
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.yaml
+  Netflix:
+    behavior: ipcidr
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix_IP.yaml
+  Twitter:
+    behavior: classical
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.yaml
+  Apple:
+    behavior: domain
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Domain.yaml
+  AD拦截:
+    behavior: domain
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AdvertisingLite/AdvertisingLite_Domain.yaml
+  Global:
+    behavior: domain
+    format: yaml
+    interval: 86400
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global_Domain.yaml
