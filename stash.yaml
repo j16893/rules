@@ -173,8 +173,17 @@ dns:
     - 119.29.29.29
     - 223.5.5.5
   nameserver:
-    - 119.29.29.29
+    - system
     - https://doh.pub/dns-query
+  fake-ip-filter:
+    - +.stun.*.*
+    - '*.msftconnecttest.com'
+    - '*.msftncsi.com'
+    - lens.l.google.com
+    - +.stun.*.*.*.*.*
+    - +.stun.*.*.*.*
+    - +.stun.*.*.*
+    - +.stun.*.*
 log-level: warning
 mode: rule
 rule-providers:
