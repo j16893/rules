@@ -64,8 +64,8 @@ proxy-groups:
     tolerance: 50
     type: url-test
     include-all: true
-  - icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Microsoft.png
-    name: Microsoft
+  - name: Microsoft
+    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure/IconSet/Color/Microsoft.png
     proxies:
       - HK 香港
       - US 美国
