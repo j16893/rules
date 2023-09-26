@@ -2,9 +2,6 @@ proxy-providers:
   订阅链接:
     url:
     interval: 600
-    # 服务提供商-2:
-    #   url: http://your-another-service-provider
-    #   interval: 600
 proxy-groups:
   # 功能分组
   - name: Global
@@ -189,61 +186,73 @@ mode: rule
 rule-providers:
   Microsoft:
     behavior: classical
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
   Instagram:
     behavior: classical
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Instagram/Instagram.yaml
   Telegram:
     behavior: classical
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
   Youtube:
     behavior: classical
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
   Spotify:
     behavior: classical
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
   OpenAI:
     behavior: classical
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
   Disney+:
     behavior: classical
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.yaml
   Netflix:
     behavior: ipcidr
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix_IP.yaml
   Twitter:
     behavior: classical
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.yaml
   Apple:
     behavior: domain
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Domain.yaml
   AD拦截:
     behavior: domain
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AdvertisingLite/AdvertisingLite_Domain.yaml
   Global:
     behavior: domain
+    type: http
     format: yaml
     interval: 86400
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global_Domain.yaml
